@@ -1,0 +1,43 @@
+{
+  "name": "grunt-extract-css-js",
+  "description": "自动合并页面中的所有外链javascript 和css，并分别生成一个独立的javascript 和css文件",
+  "version": "0.1.0",
+  "homepage": "https://github.com/slalx/grunt-extract-css-js",
+  "author": {
+    "name": "淘知了",
+    "email": "zhiliao.zsl@taobao.com",
+    "url": "https://github.com/slalx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/slalx/grunt-extract-css-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/slalx/grunt-extract-css-js/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/slalx/grunt-extract-css-js/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
