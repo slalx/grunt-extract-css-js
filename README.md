@@ -17,41 +17,78 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-extract-css-js');
 ```
 
-## The "grunt-extract-css-js" task
+## 工作原理
 
-### Overview
-In your project's Gruntfile, add a section named `extract_css` to the data object passed into `grunt.initConfig()`.
+下面的页面源码中有两个外链javascript文件，两个外链css文件。把该页面发布到线上时，为了减少页面的请求量，我们需要把javascript合并为一个文件，把css合并为一个文件。
 
-```js
-grunt.initConfig({
-  extractall: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
-})
 ```
 
+	<!DOCTYPE html>
+	<html>
+	<head>
+	  <title>test</title>
+	  <meta charset="utf-8" />
+	
+	<!-- 外部javascript开始 -->
+	<script type="text/javascript" src="a.js"></script>
+	<script type="text/javascript" src="b.js"></script>
+	<!-- 外部javascript结束 -->
+	
+	
+	
+	<!-- 外部css文件开始 -->
+	<link rel="stylesheet" type="text/css" href="a.css">
+	<link rel="stylesheet" type="text/css" href="b.css">
+	<!-- 外部css文件结束 -->
+	
+	</head>
+	<body>
+	
+	</body>
+	</html>
 
-### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-	extractall: {
-	      main:{
-	        files: {
-	            'build/dest': ['src/test/index_test.html']
-	        }
-	    }
-	}
-})
 ```
+为了完成上面的任务，插件工作流程如下
+
+1. 读取源码文件。
+2. 通过正则表达式匹配出所有的外链javascript标签，并分析出每个外链javascript文件的路径。
+3. 根据2中分析出的路径，分别读取每个外部javascript文件的内容，并合并为一个字符串，然后写入到一个新的文件中。
+4. css文件重复2-3过程。
+5. 最终结果会生成一个合并后的javascript文件和一个css文件。
+
+## 配置示例
+
+具体说明，请看注释
+
+```
+	/**
+	 * 本文件是 Gruntfile.js
+	 */
+	module.exports = function (grunt) {
+		//
+	    grunt.initConfig({
+			//任务名称
+			extractall: {
+			      main:{
+			        files: {
+			        	
+			            'build/player'/*合并后的文件路径*/: ['src/test/index_test.html']/*html源码文件路径*/
+			        }
+			    }
+			}
+	
+	
+	    });
+	
+		// ======================= 载入grunt-extract-css-js模块 ==========================
+		
+		grunt.loadNpmTasks('grunt-extract-css-js');
+	
+	};
+
+```
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
